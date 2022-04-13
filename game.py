@@ -3,6 +3,10 @@
 import random
 import sys
 
+def rand10s():
+     while True:
+        yield random.randint(1,10)
+
 def rand100s():
      while True:
         yield random.randint(1,100)
@@ -12,34 +16,54 @@ print(f'\n---START MATH DRILLS---'
       f'\n*Division: round to nearest hundredth')
 
 if __name__ == "__main__":
-    num = rand100s()
 
+    level = 1
     pts = 0
     qNum = 1
 
     while True:
-        a = next(rand100s())
-        b = next(rand100s())
+        b10 = next(rand10s())
+        a100 = next(rand100s())
+        b100 = next(rand100s())
 
         answer = 999999
         guess = 999999
 
         # ch = random.choice(['add', 'sub', 'mult'])
         ch = random.choice(['add', 'sub', 'mult', 'div'])
-        
-        if ch == 'add':
-            guess = input(f'\n{qNum}.  {a} + {b} = ')
-            answer = a + b
-        elif ch == 'sub':
-            guess = input(f'\n{qNum}.  {a} - {b} = ')
-            answer = a - b
-        elif ch == 'mult':
-            guess = input(f'\n{qNum}.  {a} * {b} = ')
-            answer = a * b
-        # DIVISION NEEDS TO BE SIMPLER
-        elif ch == 'div':
-            guess = input(f'\n{qNum}.  {a} / {b} = ')
-            answer = round(a / b, 2) # round to nearest hundredth
+
+        if pts < 10:
+            level = 1
+        if pts > 10:
+            level = 2
+
+        if level == 1:
+            if ch == 'add':
+                guess = input(f'\n{qNum}.  {a100} + {b10} = ')
+                answer = a100 + b10
+            elif ch == 'sub':
+                guess = input(f'\n{qNum}.  {a100} - {b10} = ')
+                answer = a100 - b10
+            elif ch == 'mult':
+                guess = input(f'\n{qNum}.  {a100} * {b10} = ')
+                answer = a100 * b10
+            elif ch == 'div':
+                guess = input(f'\n{qNum}.  {a100} / {b10} = ')
+                answer = round(a100 / b10, 2) # round to nearest hundredth
+
+        if level == 2:
+            if ch == 'add':
+                guess = input(f'\n{qNum}.  {a100} + {b100} = ')
+                answer = a100 + b100
+            elif ch == 'sub':
+                guess = input(f'\n{qNum}.  {a100} - {b100} = ')
+                answer = a100 - b100
+            elif ch == 'mult':
+                guess = input(f'\n{qNum}.  {a100} * {b100} = ')
+                answer = a100 * b100
+            elif ch == 'div':
+                guess = input(f'\n{qNum}.  {a100} / {b100} = ')
+                answer = round(a100 / b100, 2) # round to nearest hundredth
 
         try:
             if ch == 'div':
