@@ -8,7 +8,8 @@ def rand100s():
         yield random.randint(1,100)
 
 print(f'\n---START MATH DRILLS---'
-      f'\nEnter any letter to exit')
+      f'\nEnter any letter to exit'
+      f'\n*Division: round to nearest hundredth')
 
 if __name__ == "__main__":
     num = rand100s()
@@ -23,8 +24,8 @@ if __name__ == "__main__":
         answer = 999999
         guess = 999999
 
-        ch = random.choice(['add', 'sub', 'mult'])
-        # ch = random.choice(['add', 'sub', 'mult', 'div'])
+        # ch = random.choice(['add', 'sub', 'mult'])
+        ch = random.choice(['add', 'sub', 'mult', 'div'])
         
         if ch == 'add':
             guess = input(f'\n{qNum}.  {a} + {b} = ')
@@ -36,12 +37,15 @@ if __name__ == "__main__":
             guess = input(f'\n{qNum}.  {a} * {b} = ')
             answer = a * b
         # DIVISION NEEDS TO BE SIMPLER
-        # elif ch == 'div':
-        #     guess = input(f'\n{a} / {b} = ')
-        #     answer = a / b
+        elif ch == 'div':
+            guess = input(f'\n{qNum}.  {a} / {b} = ')
+            answer = round(a / b, 2) # round to nearest hundredth
 
         try:
-            int(guess)
+            if ch == 'div':
+                guess = float(guess)
+            else:
+                guess = int(guess)
         except ValueError:
             pts = pts - 1
             print(f'      The correct answer is {answer}.\n      Pts: {pts}')
@@ -52,7 +56,7 @@ if __name__ == "__main__":
         #     print(f'The correct answer is {answer}.')
         #     print(f'\nOk, see you next time. Good-bye. ^__^')
         #     sys.exit()
-        if int(guess) == answer:
+        if guess == answer:
             pts = pts + 1
             print(f'      True. The correct answer is {answer}.\n      Pts: {pts}')
         else:
