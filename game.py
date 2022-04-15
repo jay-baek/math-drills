@@ -70,16 +70,17 @@ if __name__ == "__main__":
                 guess = float(guess)
             else:
                 guess = int(guess)
-        except ValueError:
-            pts = pts - 1
-            print(f'      The correct answer is {answer}.\n      Pts: {pts}')
-            print(f'\nOk, see you next time. Good-bye. ^__^')
-            sys.exit()
+        except Exception as e:
+            print(f'    Error: {e}')
+            quit = input(f'    Do you want to quit (y/n)?  ')
+            if quit == 'n':
+                continue
+            elif quit == 'y' or quit == '':
+                pts = pts - 1
+                print(f'      The correct answer is {answer}.\n      Pts: {pts}')
+                print(f'\nOk, see you next time. Good-bye. ^__^')
+                sys.exit()
 
-        # if guess == 'quit':
-        #     print(f'The correct answer is {answer}.')
-        #     print(f'\nOk, see you next time. Good-bye. ^__^')
-        #     sys.exit()
         if guess == answer:
             pts = pts + 1
             print(f'      True. The correct answer is {answer}.\n      Pts: {pts}')
