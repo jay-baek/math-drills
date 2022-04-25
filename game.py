@@ -77,16 +77,16 @@ if __name__ == "__main__":
                 continue
             elif quit == 'y' or quit == '':
                 pts = pts - 1
-                print(f'      The correct answer is {answer}.\n      Pts: {pts}')
+                print(f'      The correct answer is {answer}.\n      Pts: {pts}   Lvl: {level}')
                 print(f'\nOk, see you next time. Good-bye. ^__^')
                 sys.exit()
 
         if guess == answer:
             pts = pts + 1
-            print(f'      True. The correct answer is {answer}.\n      Pts: {pts}')
+            print(f'      True. The correct answer is {answer}.\n      Pts: {pts}   Lvl: {level}')
         else:
             pts = pts - 1
-            print(f'      False. The correct answer is {answer}.\n      Pts: {pts}')
+            print(f'      False. The correct answer is {answer}.\n      Pts: {pts}   Lvl: {level}')
         qNum = qNum + 1
 
         # again = input('\nAgain? (y/n): ')
