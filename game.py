@@ -11,6 +11,7 @@ def rand100s():
      while True:
         yield random.randint(1,100)
 
+
 print(f'\n---START MATH DRILLS---'
       f'\nEnter any letter to exit'
       f'\n*Division: round to nearest hundredth')
@@ -20,6 +21,33 @@ if __name__ == "__main__":
     level = 1
     pts = 0
     qNum = 1
+
+    def set_level(points):
+        global level
+        if points <= 10:
+            level = 1
+        elif points > 10:
+            level = 2
+
+    def add(factor_a, factor_b):
+        guess = input(f'\n{qNum}.  {factor_a} + {factor_b} = ')
+        answer = factor_a + factor_b
+        return guess, answer
+
+    def sub(factor_a, factor_b):
+        guess = input(f'\n{qNum}.  {factor_a} - {factor_b} = ')
+        answer = factor_a - factor_b
+        return guess, answer
+
+    def mult(factor_a, factor_b):
+        guess = input(f'\n{qNum}.  {factor_a} * {factor_b} = ')
+        answer = factor_a * factor_b
+        return guess, answer
+
+    def div(factor_a, factor_b):
+        guess = input(f'\n{qNum}.  {factor_a} / {factor_b} = ')
+        answer = round(factor_a / factor_b, 2) # round to nearest hundredth
+        return guess, answer
 
     while True:
         b10 = next(rand10s())
@@ -32,38 +60,26 @@ if __name__ == "__main__":
         # ch = random.choice(['add', 'sub', 'mult'])
         ch = random.choice(['add', 'sub', 'mult', 'div'])
 
-        if pts < 10:
-            level = 1
-        if pts > 10:
-            level = 2
 
         if level == 1:
             if ch == 'add':
-                guess = input(f'\n{qNum}.  {a100} + {b10} = ')
-                answer = a100 + b10
+                guess, answer = add(a100, b10)
             elif ch == 'sub':
-                guess = input(f'\n{qNum}.  {a100} - {b10} = ')
-                answer = a100 - b10
+                guess, answer = sub(a100, b10)
             elif ch == 'mult':
-                guess = input(f'\n{qNum}.  {a100} * {b10} = ')
-                answer = a100 * b10
+                guess, answer = mult(a100, b10)
             elif ch == 'div':
-                guess = input(f'\n{qNum}.  {a100} / {b10} = ')
-                answer = round(a100 / b10, 2) # round to nearest hundredth
+                guess, answer = div(a100, b10)
 
         if level == 2:
             if ch == 'add':
-                guess = input(f'\n{qNum}.  {a100} + {b100} = ')
-                answer = a100 + b100
+                guess, answer = add(a100, b100)
             elif ch == 'sub':
-                guess = input(f'\n{qNum}.  {a100} - {b100} = ')
-                answer = a100 - b100
+                guess, answer = sub(a100, b100)
             elif ch == 'mult':
-                guess = input(f'\n{qNum}.  {a100} * {b100} = ')
-                answer = a100 * b100
+                guess, answer = mult(a100, b100)
             elif ch == 'div':
-                guess = input(f'\n{qNum}.  {a100} / {b100} = ')
-                answer = round(a100 / b100, 2) # round to nearest hundredth
+                guess, answer = div(a100, b100)
 
         try:
             if ch == 'div':
@@ -83,9 +99,11 @@ if __name__ == "__main__":
 
         if guess == answer:
             pts = pts + 1
+            set_level(pts)
             print(f'      True. The correct answer is {answer}.\n      Pts: {pts}   Lvl: {level}')
         else:
             pts = pts - 1
+            set_level(pts)
             print(f'      False. The correct answer is {answer}.\n      Pts: {pts}   Lvl: {level}')
         qNum = qNum + 1
 
