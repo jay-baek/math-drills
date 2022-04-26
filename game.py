@@ -11,6 +11,10 @@ def rand100s():
      while True:
         yield random.randint(1,100)
 
+def rand1000s():
+     while True:
+        yield random.randint(1,100)
+
 
 print(f'\n---START MATH DRILLS---'
       f'\nEnter any letter to exit'
@@ -18,68 +22,54 @@ print(f'\n---START MATH DRILLS---'
 
 if __name__ == "__main__":
 
-    level = 1
-    pts = 0
-    qNum = 1
+    level, pts, qNum = 1, 0, 1
 
     def set_level(points):
         global level
-        if points <= 10:
-            level = 1
+        if points > 20:
+            level = 3
         elif points > 10:
             level = 2
+        elif points <= 10:
+            level = 1
+        elif points < 0:
+            level = 0
 
-    def add(factor_a, factor_b):
-        guess = input(f'\n{qNum}.  {factor_a} + {factor_b} = ')
-        answer = factor_a + factor_b
-        return guess, answer
-
-    def sub(factor_a, factor_b):
-        guess = input(f'\n{qNum}.  {factor_a} - {factor_b} = ')
-        answer = factor_a - factor_b
-        return guess, answer
-
-    def mult(factor_a, factor_b):
-        guess = input(f'\n{qNum}.  {factor_a} * {factor_b} = ')
-        answer = factor_a * factor_b
-        return guess, answer
-
-    def div(factor_a, factor_b):
-        guess = input(f'\n{qNum}.  {factor_a} / {factor_b} = ')
-        answer = round(factor_a / factor_b, 2) # round to nearest hundredth
-        return guess, answer
+    def equation(factor_a, factor_b, type: str):
+        if type == 'add':
+            guess = input(f'\n{qNum}.  {factor_a} + {factor_b} = ')
+            answer = factor_a + factor_b
+            return guess, answer
+        if type == 'sub':
+            guess = input(f'\n{qNum}.  {factor_a} - {factor_b} = ')
+            answer = factor_a - factor_b
+            return guess, answer
+        if type == 'mult':
+            guess = input(f'\n{qNum}.  {factor_a} * {factor_b} = ')
+            answer = factor_a * factor_b
+            return guess, answer
+        if type == 'div':
+            guess = input(f'\n{qNum}.  {factor_a} / {factor_b} = ')
+            answer = round(factor_a / factor_b, 2) # round to nearest hundredth
+            return guess, answer
 
     while True:
         b10 = next(rand10s())
         a100 = next(rand100s())
         b100 = next(rand100s())
+        a1000 = next(rand1000s())
 
-        answer = 999999
-        guess = 999999
+        answer, guess = 999999, 999999
 
-        # ch = random.choice(['add', 'sub', 'mult'])
         ch = random.choice(['add', 'sub', 'mult', 'div'])
 
 
         if level == 1:
-            if ch == 'add':
-                guess, answer = add(a100, b10)
-            elif ch == 'sub':
-                guess, answer = sub(a100, b10)
-            elif ch == 'mult':
-                guess, answer = mult(a100, b10)
-            elif ch == 'div':
-                guess, answer = div(a100, b10)
-
+            guess, answer = equation(a100, b10, ch)
         if level == 2:
-            if ch == 'add':
-                guess, answer = add(a100, b100)
-            elif ch == 'sub':
-                guess, answer = sub(a100, b100)
-            elif ch == 'mult':
-                guess, answer = mult(a100, b100)
-            elif ch == 'div':
-                guess, answer = div(a100, b100)
+            guess, answer = equation(a100, b100, ch)
+        if level == 3:
+            guess, answer = equation(a1000, b100, ch)
 
         try:
             if ch == 'div':
